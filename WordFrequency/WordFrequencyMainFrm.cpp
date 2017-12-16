@@ -6,6 +6,7 @@
 #include "WordFrequency.h"
 #include "WordFrequencyMainFrm.h"
 #include "ContentView.h"
+#include "WordNumber.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -87,7 +88,7 @@ BOOL CWordFrequencyMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext
     m_wndSplitterWnd.CreateStatic(this, 1, 2);
     
     m_wndSplitterWnd.CreateView(0, 0, RUNTIME_CLASS(CContentView), CSize(200, 0), pContext);
-    m_wndSplitterWnd.CreateView(0, 1, RUNTIME_CLASS(CContentView), CSize(200, 0), pContext);
+    m_wndSplitterWnd.CreateView(0, 1, RUNTIME_CLASS(CWordNumber), CSize(200, 0), pContext);
     
     return TRUE;
     //return CFrameWnd::OnCreateClient(lpcs, pContext);

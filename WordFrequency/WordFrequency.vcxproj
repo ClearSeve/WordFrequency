@@ -193,6 +193,7 @@
     <ClInclude Include="WordFrequencyChildView.h" />
     <ClInclude Include="WordFrequencyDoc.h" />
     <ClInclude Include="WordFrequencyMainFrm.h" />
+    <ClInclude Include="WordNumber.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentView.cpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="WordFrequencyChildView.cpp" />
     <ClCompile Include="WordFrequencyDoc.cpp" />
     <ClCompile Include="WordFrequencyMainFrm.cpp" />
+    <ClCompile Include="WordNumber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WordFrequency.rc" />
