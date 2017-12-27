@@ -100,11 +100,9 @@ BOOL CWordFrequencyApp::InitInstance()
     CCreateContext cc;
     cc.m_pCurrentDoc = new CWordFrequencyDoc;
     //cct.m_pNewViewClass = RUNTIME_CLASS(CWordFrequencyChildView);
+	pFrame->LoadFrame(IDR_WORDFREQUENCY, WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE,NULL,&cc);
 
-
-    pFrame->Create(NULL, _T("词频分析"),WS_OVERLAPPEDWINDOW, CWordFrequencyMainFrame::rectDefault,0,0,0,&cc);
-
-
+    //pFrame->Create(NULL, _T("词频分析"),WS_OVERLAPPEDWINDOW, CWordFrequencyMainFrame::rectDefault,0,0,0,&cc);
 
 	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
 	pFrame->ShowWindow(SW_SHOW);
@@ -141,6 +139,8 @@ protected:
 // 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+//	virtual BOOL Create(LPCTSTR lpszTemplateName, CWnd* pParentWnd = NULL);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -166,3 +166,11 @@ void CWordFrequencyApp::OnAppAbout()
 
 
 
+
+
+//BOOL CAboutDlg::Create(LPCTSTR lpszTemplateName, CWnd* pParentWnd)
+//{
+//	// TODO:  在此添加专用代码和/或调用基类
+//
+//	return CDialogEx::Create(lpszTemplateName, pParentWnd);
+//}

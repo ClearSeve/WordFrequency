@@ -42,7 +42,7 @@
     <ClInclude Include="WordFrequencyDoc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="WordNumber.h">
+    <ClInclude Include="ListViewEx.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="WordFrequencyDoc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="WordNumber.cpp">
+    <ClCompile Include="ListViewEx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

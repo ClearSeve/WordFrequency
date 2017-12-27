@@ -52,8 +52,8 @@ BEGIN
     "\r\n"
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
-    "#include ""res\\WordFrequency.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
-    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#include ""res\\WordFrequency.rc2""  // ·? Microsoft Visual C++ ±à?-μ?×ê?′\r\n"
+    "#include ""l.CHS\\afxres.rc""      // ±ê×?×é?t\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -69,7 +69,6 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\WordFrequency.ico"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -105,14 +104,6 @@ BEGIN
     LTEXT           "WordFrequency，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2017",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
-END
-
-IDD_FORMVIEW DIALOGEX 0, 0, 185, 93
-STYLE DS_SETFONT | WS_CHILD
-FONT 9, "宋体", 400, 0, 0x0
-BEGIN
-    PUSHBUTTON      "开始",IDC_BUTTON,135,79,50,14
-    CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,0,185,76
 END
 
 
@@ -170,10 +161,6 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
-
-    IDD_FORMVIEW, DIALOG
-    BEGIN
-    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -183,9 +170,23 @@ END
 // AFX_DIALOG_LAYOUT
 //
 
-IDD_FORMVIEW AFX_DIALOG_LAYOUT
+IDD_FORMVIEW AFX_DIALOG_LAYOUT 
 BEGIN
-    0
+    0x0000
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_WORDFREQUENCY MENU
+BEGIN
+    POPUP "操作"
+    BEGIN
+        MENUITEM "开始",                          ID_BEGIN
+    END
 END
 
 

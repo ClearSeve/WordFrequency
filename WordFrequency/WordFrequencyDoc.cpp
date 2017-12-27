@@ -66,3 +66,12 @@ void CWordFrequencyDoc::Serialize(CArchive& ar)
 
 
 // CWordFrequencyDoc 命令
+
+
+
+BOOL CWordFrequencyDoc::SaveModified()
+{
+	// TODO:  在此添加专用代码和/或调用基类
+
+	return TRUE; // CDocument::SaveModified();
+}
