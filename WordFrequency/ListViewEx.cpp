@@ -47,5 +47,8 @@ BOOL CListViewEx::PreCreateWindow(CREATESTRUCT& cs)
 {
 	cs.style |= LVS_REPORT;;
 
+	
+
 	return CListView::PreCreateWindow(cs);
 }
+

@@ -42,6 +42,11 @@ CWordFrequencyMainFrame::CWordFrequencyMainFrame() :m_wndViewWdith(), m_bOnlyIni
 CWordFrequencyMainFrame::~CWordFrequencyMainFrame()
 {
 }
+ // ListCtrl 排序函数
+int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+{
+	return lParam1 < lParam2;
+}
 
 int CWordFrequencyMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -51,6 +56,9 @@ int CWordFrequencyMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	static_cast<CListViewEx*>(m_wndSplitterWnd.GetPane(0, 1))->GetListCtrl().InsertColumn(0, _T("单词"), LVCFMT_LEFT, 100);
 	static_cast<CListViewEx*>(m_wndSplitterWnd.GetPane(0, 1))->GetListCtrl().InsertColumn(1, _T("词频"), LVCFMT_LEFT, 100);
 
+
+
+	
 	return 0;
 }
 
@@ -95,7 +103,6 @@ BOOL CWordFrequencyMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CM
 }
 
 
-
 BOOL CWordFrequencyMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
     m_wndSplitterWnd.CreateStatic(this, 1, 2);
@@ -103,6 +110,7 @@ BOOL CWordFrequencyMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext
 	m_wndSplitterWnd.CreateView(0, 0, RUNTIME_CLASS(CContentView), CSize(m_wndViewWdith, 0), pContext);
 	m_wndSplitterWnd.CreateView(0, 1, RUNTIME_CLASS(CListViewEx), CSize(0, 0), pContext);
     
+	
     return TRUE;
     //return CFrameWnd::OnCreateClient(lpcs, pContext);
 }
@@ -126,33 +134,30 @@ void CWordFrequencyMainFrame::OnSize(UINT nType, int cx, int cy)
 		// 调整切分大小
 		m_wndSplitterWnd.SetColumnInfo(0, cx*0.7, 0); 
 		m_wndSplitterWnd.RecalcLayout();
+
+
 	}
 	
 }
-// map 排序
-typedef pair<CString, UINT> pp;
-bool sortfunction(pp i, pp j)
-{
-	return i.second < j.second; 
-}
-
-
 
 DWORD WINAPI OperateThreadProc(_In_ LPVOID lpParameter)
 {
 	LPOPERATETHREADDATA pOperateThreadData = (LPOPERATETHREADDATA)lpParameter;
 
-	map<CString,UINT> wordmap;
+	map<CString, DWORD> wordmap;
 
 	pOperateThreadData->pwndEditView->EnableWindow(FALSE);
 	*pOperateThreadData->pbMenuItemClick = FALSE;
+
+	// 末尾添加空格
+	pOperateThreadData->strText += _T(" ");
 
 	// 清空ListItem
 	pOperateThreadData->pwndListCtrl->DeleteAllItems();
 
 	// 调整文章为小写
 	pOperateThreadData->strText.MakeLower();
-	
+
 	// 过滤单词中的符号
 	for (int i = 0; i < pOperateThreadData->strText.GetLength(); ++i)
 	{
@@ -188,36 +193,38 @@ DWORD WINAPI OperateThreadProc(_In_ LPVOID lpParameter)
 		if (strWork.GetLength()>0)
 		{
 			
-			map<CString, UINT>::iterator p = wordmap.find(strWork);
+			map<CString, DWORD>::iterator p = wordmap.find(strWork);
 			if ( p != wordmap.end())
-			{
-
-
+			{ // 找到
+				wordmap[strWork]++;
 			}
 			else
-			{
-				wordmap.insert(pair<CString, UINT>(strWork, 1));
+			{ // 未找到
+				wordmap.insert(pair<CString, DWORD>(strWork, 1));
 			}
-
-			//
 		}
 		
 	}
-	// 排序
-	std::sort(wordmap.begin(), wordmap.end());
 
 	//// 迭代器的遍历
-	//
-	//map<CString, UINT>::iterator pBegin = wordmap.begin();
-	//while (pBegin != wordmap.end())
-	//{
-	//	
-	//	pOperateThreadData->pwndListCtrl->InsertItem(pOperateThreadData->pwndListCtrl->GetItemCount(), pBegin->first);
+	map<CString, DWORD>::iterator pBegin = wordmap.begin();
+	while (pBegin != wordmap.end())
+	{
+		int nItem = pOperateThreadData->pwndListCtrl->InsertItem(pOperateThreadData->pwndListCtrl->GetItemCount(), pBegin->first);
+		CString strText;
+		strText.Format(_TEXT("%d"), pBegin->second);
+		pOperateThreadData->pwndListCtrl->SetItemText(nItem, 1, strText);
+		// 设置data
+		pOperateThreadData->pwndListCtrl->SetItemData(nItem, pBegin->second);
+		pBegin++;
+	}
+	
+	// 设置排序
+	pOperateThreadData->pwndListCtrl->SortItems(CompareFunc, 0);
 
-	//	pBegin++;
 
-	//}
-	////
+	// 开始排序
+	pOperateThreadData->pwndListCtrl->Arrange(LVA_DEFAULT);
 
 
 	*pOperateThreadData->pbMenuItemClick = TRUE;
@@ -238,6 +245,9 @@ void CWordFrequencyMainFrame::OnBegin()
 	pOperateThreadData->pMenu = GetMenu()->GetSubMenu(0);
 	pOperateThreadData->pbMenuItemClick = &m_bMenuItemClick;
 	m_wndSplitterWnd.GetPane(0, 0)->GetWindowText(pOperateThreadData->strText);
+
+	
+
 
 	CreateThread(NULL, 0, OperateThreadProc, pOperateThreadData, 0, NULL);
 }

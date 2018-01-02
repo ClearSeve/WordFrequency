@@ -127,15 +127,15 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "080404B0"
+        BLOCK "080404b0"
         BEGIN
-            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "CompanyName", "ClearSeve"
             VALUE "FileDescription", "WordFrequency"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "WordFrequency.exe"
             VALUE "LegalCopyright", "TODO:  (C) <公司名>。  保留所有权利。"
             VALUE "OriginalFilename", "WordFrequency.exe"
-            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductName", "词频分析"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -268,6 +268,11 @@ STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "将窗口恢复到正常大小"
     AFX_IDS_SCTASKLIST      "激活任务列表"
+END
+
+STRINGTABLE
+BEGIN
+    IDR_WORDFREQUENCY       "词频分析"
 END
 
 #endif    // 中文(简体，中国) resources
