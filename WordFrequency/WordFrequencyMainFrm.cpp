@@ -258,3 +258,16 @@ void CWordFrequencyMainFrame::OnUpdateBegin(CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable(m_bMenuItemClick);
 }
+
+
+BOOL CWordFrequencyMainFrame::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_F1)
+	{
+		// ´ò¿ªÖ÷Ò³
+		ShellExecute(NULL, _T("OPEN"), _T("http://www.clearseve.com/Software/243.html"), NULL, NULL, SW_SHOWNORMAL);
+		return TRUE;
+	}
+
+	return CFrameWnd::PreTranslateMessage(pMsg);
+}

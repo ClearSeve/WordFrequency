@@ -141,6 +141,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 //	virtual BOOL Create(LPCTSTR lpszTemplateName, CWnd* pParentWnd = NULL);
+//	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -173,4 +174,12 @@ void CWordFrequencyApp::OnAppAbout()
 //	// TODO:  在此添加专用代码和/或调用基类
 //
 //	return CDialogEx::Create(lpszTemplateName, pParentWnd);
+//}
+
+
+//BOOL CAboutDlg::PreTranslateMessage(MSG* pMsg)
+//{
+//	// TODO:  在此添加专用代码和/或调用基类
+//
+//	return CDialogEx::PreTranslateMessage(pMsg);
 //}
